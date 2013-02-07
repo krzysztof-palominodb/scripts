@@ -3,9 +3,10 @@
 limit=$1
 i=0
 
+# comma separadet list of emails
 emails='krzysztof@palominodb.com, krzysztof@ksiazek.info'
 
-if [ -e check.out ] ; then rm check.out ; fi
+if [ -e check.out ] ; then rm check.out ; fi # delete output file in case it exist
 
 #~/dba/pdb-check-maxvalue.sh -s $limit -i db31 
 
@@ -25,6 +26,8 @@ count=`grep -v Postgres check.out | grep -v '^$' | wc -l`
 if (( count > i  )) # if we have more lines than number of hosts in the loop, something was found
 then
   (echo -n "Following columns passed ${1}% mark on following hosts:"; cat check.out | grep -v Progress) | mail -s "Integer audit report" ${emails}
-else
-  echo "nothing found, therefore I also won't do anything"
 fi
+# If above won't fire, we assune that nothing has been found
+
+if [ -e check.out ] ; then rm check.out ; fi # clean after ourselves
+
