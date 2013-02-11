@@ -20,7 +20,7 @@ do
 done
 
 #cat check.out | grep -v Progress
-count=`grep -v Postgres check.out | grep -v '^$' | wc -l`
+count=`grep -v Progress check.out | grep -v '^$' | wc -l`
 
 
 if (( count > i  )) # if we have more lines than number of hosts in the loop, something was found
@@ -28,6 +28,6 @@ then
   (echo -n "Following columns passed ${1}% mark on following hosts:"; cat check.out | grep -v Progress) | mail -s "Integer audit report" ${emails}
 fi
 # If above won't fire, we assune that nothing has been found
-
+i
 if [ -e check.out ] ; then rm check.out ; fi # clean after ourselves
 
