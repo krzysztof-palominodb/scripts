@@ -53,7 +53,7 @@ if __name__ == '__main__':
     threadoutput = []
     start = time.time()
 
-    for i in range(1):
+    for i in range(1): # range 1, because we have problem with multiple pdb-check-maxvalue.sh so I'm running with single thread ATM
         threadoutput.append('');
         t = Threads(queue, i, limit)
         t.setDaemon(True)
