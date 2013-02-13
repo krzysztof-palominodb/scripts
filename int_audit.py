@@ -11,9 +11,17 @@ def long_process(argument): #simulate a long process with args
 def get_db_list():
     p = subprocess.Popen(['/home/kksiazek/palominodb/scripts/show_nodes_in_cluster.sh'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
-    print out
-    m = re.match(r".*,(db.*).*", out)
-    print m.group(0)
+#    print out
+    x = re.compile(".*,(db.*)", re.MULTILINE)
+    m = x.match(out)
+#    m = re.match(r".*,(db.*)\n.*", out)
+#    print m.group(0)
+
+    for line in out.split('\n'):
+        if line.strip() != '':
+
+#            print line
+#            print line.split(',')[3]
  
 def process_tasks():
     pool = threadpool.ThreadPool(4)
