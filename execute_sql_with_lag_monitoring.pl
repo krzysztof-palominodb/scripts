@@ -19,7 +19,8 @@ my $sqlfile = $ARGV[0]; # pass sql file as a variable to the script
 my $lag_check_interval = 1000;
 
 sub check_slave_lag {
-
+        my $sth = $dbh->prepare("SELECT 1") or die "Can't connect to the master";
+        $sth->execute() or die $DBI::errstr;
         foreach(@slaves) {
                 $slave = $_;
                 my $slave_is_working = 1;
